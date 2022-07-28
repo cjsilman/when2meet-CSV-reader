@@ -68,7 +68,7 @@ def filterName(dataframe, name):
     )
     return dataframe
 
-#Bring out the day and times available
+#Print out the days and times available
 def printTimes(df):
     previous = None
     for time in (df["Time"]):
