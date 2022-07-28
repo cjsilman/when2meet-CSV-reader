@@ -2,10 +2,12 @@ import polars as pl
 import datetime
 from datetime import datetime
 
-df = pl.read_csv("G:/Desktop/All Python Projects/CSV Scheduler/availabilities.csv")
+#Read csv file gotten from when2meet
+df = pl.read_csv("availabilities.csv")
 
 names = df.columns[1:]
 
+#Menu
 def main():
     while True:
         print(
@@ -37,6 +39,7 @@ def main():
         else:
             print("Invalid Input\n")
 
+#Grab availability for one person
 def grabAvailability(df, name):
     try:
         df = filterName(df, name)
@@ -47,8 +50,8 @@ def grabAvailability(df, name):
     df = df[["Time", f"{name}"]]
     printTimes(df)
 
+#See when multiple people are available
 def seeEquivalentTimes(df, *names):
-    
     for name in names:
         try:
             df = filterName(df, name)
@@ -58,14 +61,14 @@ def seeEquivalentTimes(df, *names):
 
     printTimes(df)
 
+#Filter for when only names are True for timestamps
 def filterName(dataframe, name):
     dataframe = dataframe.filter(
         (pl.col(name)==1)
     )
     return dataframe
 
-
-
+#Bring out the day and times available
 def printTimes(df):
     previous = None
     for time in (df["Time"]):
